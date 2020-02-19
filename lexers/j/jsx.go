@@ -70,7 +70,6 @@ var JSX = internal.Register(MustNewLexer(
 		},
 		"jsx": {
 			{`(<)([\w]+)`, ByGroups(Punctuation, NameTag), Push("tag")},
-			{`(<)(/)([\w]+)(>)`, ByGroups(Punctuation, Punctuation, NameTag, Punctuation), nil},
 		},
 		"tag": {
 			{`\s+`, Text, nil},
@@ -78,6 +77,7 @@ var JSX = internal.Register(MustNewLexer(
 			{`[{}]+`, Punctuation, nil},
 			{`[\w\.]+`, NameAttribute, nil},
 			{`(/?)(\s*)(>)`, ByGroups(Punctuation, Text, Punctuation), Pop(1)},
+			{`(<)(/)([\w]+)(>)`, ByGroups(Punctuation, Punctuation, NameTag, Punctuation), Pop(1)},
 		},
 		"attr": {
 			{`{`, Punctuation, Push("expression")},
